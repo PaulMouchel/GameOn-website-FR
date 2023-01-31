@@ -37,15 +37,16 @@ form.addEventListener("submit", validate)
 function validate(e) {
   e.preventDefault()
 
-  let isValidate = true
-  isValidate = validateName("first") && isValidate
-  isValidate = validateName("last") && isValidate
-  isValidate = validateEmail() && isValidate
-  isValidate = validateBirthdate() && isValidate
-  isValidate = validateQuantity() && isValidate
-  isValidate = validateRadio() && isValidate
-  isValidate = validateCheckboxes() && isValidate
+  let isValidated = true
+  isValidated = validateName("first") && isValidated
+  isValidated = validateName("last") && isValidated
+  isValidated = validateEmail() && isValidated
+  isValidated = validateBirthdate() && isValidated
+  isValidated = validateQuantity() && isValidated
+  isValidated = validateRadio() && isValidated
+  isValidated = validateCheckboxes() && isValidated
   
+  if (isValidated) confirm()
 }
 
 function setError(htmlElement, message) {
@@ -63,7 +64,7 @@ function resetError(htmlElement) {
 function validateName(id) {
   const htmlElement = document.getElementById(id)
   const value = htmlElement.value.trim()
-  if (value.length < 2) return setError(htmlElement, 'Le champ doit contenir au moins 2 caractères');
+  if (value.length < 2) return setError(htmlElement, 'Veuillez entrer 2 caractères ou plus pour le champ du nom.');
   return resetError(htmlElement)
 }
 
@@ -77,7 +78,7 @@ function validateEmail() {
 
 function validateBirthdate() {
   const htmlElement = document.getElementById("birthdate")
-  if (!htmlElement.value) return setError(htmlElement, 'Veuillez renseigner la date');
+  if (!htmlElement.value) return setError(htmlElement, 'Vous devez entrer votre date de naissance.');
   return resetError(htmlElement)
 }
 
@@ -93,12 +94,28 @@ function validateQuantity() {
 function validateRadio() {
   const firstRadio = document.getElementById("location1")
   const htmlElement = document.querySelector('input[name="location"]:checked')
-  if (!htmlElement) return setError(firstRadio, 'Veuillez selectionner un élément');
+  if (!htmlElement) return setError(firstRadio, 'Vous devez choisir une option.');
   return resetError(firstRadio)
 }
 
 function validateCheckboxes() {
   const checkbox = document.getElementById("checkbox1")
-  if (!checkbox.checked) return setError(checkbox, "Veuillez accepter les conditions d'utilisation");
+  if (!checkbox.checked) return setError(checkbox, "Vous devez vérifier que vous acceptez les termes et conditions.");
   return resetError(checkbox)
 }
+
+function confirm() {
+  const modalBody = document.getElementsByClassName("modal-body")[0]
+  modalBody.innerHTML = `<div class="h-full">
+    <div class="center">Merci pour votre inscription</div>
+    <input
+      class="btn-submit"
+      type="submit"
+      class="button"
+      value="Fermer"
+    />
+  </div>`
+  const button = document.getElementsByClassName("btn-submit")[0]
+  button.addEventListener("click", closeModal);
+}
+

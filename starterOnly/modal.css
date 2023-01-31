@@ -527,3 +527,15 @@ footer {
   }
 }
 
+.h-full {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
