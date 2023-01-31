@@ -37,8 +37,7 @@ form.addEventListener("submit", validate)
 function validate(e) {
   e.preventDefault()
 
-  let isValidated = true
-  isValidated = validateName("first") && isValidated
+  let isValidated = validateName("first")
   isValidated = validateName("last") && isValidated
   isValidated = validateEmail() && isValidated
   isValidated = validateBirthdate() && isValidated
